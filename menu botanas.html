@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Menú Botanería Don Chuy</title>
+<style>
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #e0f7fa;
+    min-height: 100vh;
+  }
+
+  header {
+    background: rgba(0, 150, 255, 0.9);
+    padding: 2rem 1rem 1rem 1rem;
+    text-align: center;
+    box-shadow: 0 0 20px #00b0ff;
+    backdrop-filter: saturate(180%) blur(8px);
+    border-radius: 0 0 15px 15px;
+  }
+
+  header h1 {
+    font-size: 4.2rem;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    text-shadow:
+      -2px -2px 0 #004e92,
+      2px -2px 0 #004e92,
+      -2px 2px 0 #004e92,
+      2px 2px 0 #004e92,
+      0 0 12px #007bff,
+      0 0 24px #007bff;
+    letter-spacing: 9px;
+    padding: 0 12px;
+  }
+
+  header p {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #a1d9ff;
+    margin-top: 0.3rem;
+  }
+
+  main {
+    max-width: 980px;
+    margin: 2rem auto 4rem auto;
+    padding: 0 1rem;
+  }
+
+  /* Animación saludo */
+  @keyframes saludo {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+  }
+  .animated-saludo {
+    animation: saludo 2.5s ease-in-out infinite;
+    transform-origin: bottom center;
+    cursor: pointer;
+  }
+
+  .animaciones-saludo {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .animaciones-saludo img {
+    width: 100px;
+  }
+
+  /* Grid para tarjetas */
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.3rem;
+  }
+
+  /* Tarjeta */
+  .card {
+    background: rgba(0, 20, 40, 0.85);
+    border-radius: 12px;
+    border: 3px solid #00b0ff;
+    box-shadow:
+      0 0 8px #00b0ff,
+      0 0 20px #00e5ff,
+      0 0 30px #00b0ff inset;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 20px #00e5ff,
+      0 0 40px #00e5ff,
+      0 0 50px #00e5ff inset;
+  }
+
+  .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  /* Contenedor del texto y precio */
+  .card-info {
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    font-style: italic;
+  }
+
+  /* Nombre del producto */
+  .card-info .name {
+    color: #bbdefb;
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-shadow: 0 0 6px #00b0ff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+  }
+
+  /* Precio */
+  .card-info .price {
+    color: #00e5ff;
+    font-weight: 900;
+    font-size: 1.3rem;
+    text-shadow: 0 0 8px #00e5ff;
+    white-space: nowrap;
+  }
+
+  /* Precios múltiples: para bebidas litro y medio litro */
+  .prices-multi {
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 0.5rem 1rem 1rem 1rem;
+    font-weight: 900;
+    font-size: 1.15rem;
+    color: #00e5ff;
+    text-shadow: 0 0 6px #00b0ff;
+  }
+
+  .prices-multi span {
+    background: #004973;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* Sección títulos */
+  section h2 {
+    margin: 2.5rem 0 1.3rem 0;
+    font-size: 2rem;
+    color: #00b0ff;
+    border-bottom: 3px solid #00e5ff;
+    padding-bottom: 0.3rem;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+  }
+
+  /* Footer */
+  footer {
+    background: #004973;
+    color: #b3e5fc;
+    text-align: center;
+    padding: 1.8rem 1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    box-shadow: 0 -3px 10px #00b0ffaa;
+    border-radius: 15px 15px 0 0;
+  }
+
+  footer a {
+    color: #81d4fa;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    .card img {
+      height: 160px;
+    }
+    .card-info .name {
+      font-size: 1.1rem;
+      max-width: 60%;
+    }
+    .card-info .price {
+      font-size: 1.15rem;
+    }
+    .prices-multi {
+      font-size: 1rem;
+      padding-bottom: 0.8rem;
+      gap: 0.7rem;
+    }
+    .prices-multi span {
+      padding: 2px 8px;
+      font-size: 0.95rem;
+    }
+    .animaciones-saludo img {
+      width: 70px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Botanería Don Chuy</h1>
+  <p>Ven por tu botana</p>
+</header>
+
+<main>
+
+  <!-- Animaciones saludos -->
+  <section class="animaciones-saludo">
+    <img src="https://i.postimg.cc/kgY76LwT/Chat-GPT-Image-16-may-2025-09-36-37-a-m.png" alt="Elote saludando" class="animated-saludo" />
+    <img src="https://i.postimg.cc/RZgZ1WCQ/Chat-GPT-Image-16-may-2025-09-42-17-a-m.png" alt="Hamburguesa saludando" class="animated-saludo" />
+    <img src="https://i.postimg.cc/cHgz9bR4/Chat-GPT-Image-16-may-2025-09-49-35-a-m.png" alt="Taco saludando" class="animated-saludo" />
+  </section>
+
+  <!-- Hamburguesas y Papas -->
+  <section>
+    <h2>Hamburguesas y Papas</h2>
+    <div class="cards-container">
+      <div class="card">
+        <img src="https://i.imgur.com/LxJXqqd.jpg" alt="Hamburguesa con papas" />
+        <div class="card-info">
+          <span class="name">Hamburguesa con papas</span>
+          <span class="price">$55</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://i.imgur.com/5i0vlJ4.jpg" alt="Orden de papas a la francesa" />
+        <div class="card-info">
+          <span class="name">Orden de papas a la francesa</span>
+          <span class="price">$30</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://i.imgur.com/c4RzoA3.jpg" alt="Salchipapa" />
+        <div class="card-info">
+          <span class="name">Salchipapa</span>
+          <span class="price">$40</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://i.imgur.com/ojK5c8G.jpg" alt="Alitas con papas" />
+        <div class="card-info">
+          <span class="name">Alitas con papas</span>
+          <span class="price">$45</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Botanas y Antojitos -->
+  <section>
+    <h2>Botanas y Antojitos</h2>
+    <div class="cards-container">
+      <div class="card">
+        <img src="https://i.imgur.com/cGqykex.jpg" alt="Esquites" />
+        <div class="card-info">
+          <span class="name">Esquites</span>
+          <span class="price">$30</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://i.postimg.cc/VsWzkFpL/87721004-132916261565811-3741856094746574848-n.jpg" alt="Sabritas con elote" />
+        <div class="card-info">
+          <span class="name">Sabritas con elote</span>
+          <span class="price">$45</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://i.imgur.com/F6lO1pK.jpg" alt="Maruchan con elote" />
+        <div class="card-info">
+          <span class="name">Maruchan con elote</span>
+          <span class="price">$45</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://i.postimg.cc/cCpzc258/30be7d11a3ed6f6183354d1933fbb6c7.jpg" alt="Maruchan con sabritas y elote" />
+        <div class="card-info">
+          <span class="name">Maruchan con sabritas y elote</span>
+          <span class="price">$65</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://i.imgur.com/t8jPfQX.jpg" alt="Papas estilo chips con cueritos" />
+        <div class="card-info">
+          <span class="name">Papas estilo chips con cueritos</span>
+          <span class="price">$35</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tacos y Chicharrones -->
+  <section>
+    <h2>Tacos y Chicharrones</h2>
+    <div class="cards-container">
+      <div class="card">
+        <img src="https://i.imgur.com/6iRDjcd.jpg" alt="Tacos de res y cerdo" />
+        <div class="card-info">
+          <span class="name">Tacos de res y cerdo</span>
+          <span class="price">Precio por taco: $10 c/u</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://i.imgur.com/YwEOyGi.jpg" alt="Chicharrones preparados" />
+        <div class="card-info">
+          <span class="name">Chicharrones preparados</span>
+          <span class="price">$25</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bebidas alcohólicas -->
+  <section>
+    <h2>Bebidas alcohólicas</h2>
+    <div class="cards-container">
+      <div class="card">
+        <img src="https://i.imgur.com/Zm4CGMa.jpg" alt="Micheladas" />
+        <div class="card-info">
+          <span class="name">Micheladas</span>
+        </div>
+        <div class="prices-multi">
+          <span>1 litro: $80</span>
+          <span>½ litro: $50</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/5vA22Ct.jpg" alt="Pitufo o Azulitos" />
+        <div class="card-info">
+          <span class="name">Pitufo o Azulitos</span>
+        </div>
+        <div class="prices-multi">
+          <span>1 litro: $80</span>
+          <span>½ litro: $50</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/pzNBoUs.jpg" alt="Vampiros" />
+        <div class="card-info">
+          <span class="name">Vampiros</span>
+        </div>
+        <div class="prices-multi">
+          <span>Precio por definir</span>
+          <span>1 litro: $80</span>
+          <span>½ litro: $50</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/Li8Ldkk.jpg" alt="Palomas" />
+        <div class="card-info">
+          <span class="name">Palomas</span>
+        </div>
+        <div class="prices-multi">
+          <span>Precio por definir</span>
+          <span>1 litro: $80</span>
+          <span>½ litro: $50</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.postimg.cc/X7YyF645/4218ca1d09174218364162cd0b1a8cc1.jpg" alt="Rusas" />
+        <div class="card-info">
+          <span class="name">Rusas</span>
+        </div>
+        <div class="prices-multi">
+          <span>Precio por definir</span>
+          <span>1 litro: $80</span>
+          <span>½ litro: $50</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/mr4rzHg.jpg" alt="Spicy de mango" />
+        <div class="card-info">
+          <span class="name">Spicy de mango (bebida con chile y alcohol)</span>
+        </div>
+        <div class="prices-multi">
+          <span>1 litro: $80</span>
+          <span>½ litro: $50</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/zYtBDlB.jpg" alt="Mojito" />
+        <div class="card-info">
+          <span class="name">Mojito</span>
+        </div>
+        <div class="prices-multi">
+          <span>1 litro: $80</span>
+          <span>½ litro: $50</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/pP3L7kO.jpg" alt="Piñas coladas" />
+        <div class="card-info">
+          <span class="name">Piñas coladas</span>
+        </div>
+        <div class="prices-multi">
+          <span>1 litro: $90</span>
+          <span>½ litro: $55</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Postres y Raspados -->
+  <section>
+    <h2>Postres y Raspados</h2>
+    <div class="cards-container">
+      <div class="card">
+        <img src="https://i.imgur.com/7ZqizvT.jpg" alt="Raspado de vainilla" />
+        <div class="card-info">
+          <span class="name">Raspado de vainilla</span>
+        </div>
+        <div class="prices-multi">
+          <span>Sin lechera: $30</span>
+          <span>Con lechera: $35</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/K8y1AJZ.jpg" alt="Raspado de grosella" />
+        <div class="card-info">
+          <span class="name">Raspado de grosella</span>
+        </div>
+        <div class="prices-multi">
+          <span>Sin lechera: $30</span>
+          <span>Con lechera: $35</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/1qfZGLq.jpg" alt="Raspado de nuez" />
+        <div class="card-info">
+          <span class="name">Raspado de nuez</span>
+        </div>
+        <div class="prices-multi">
+          <span>Sin lechera: $30</span>
+          <span>Con lechera: $35</span>
+        </div>
+      </div>
+
+      <div class="card">
+       
